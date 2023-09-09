@@ -5,7 +5,7 @@
 
 vague algorithm, will test later
 
-split all parts of equation into elements
+split all parts of equation into elements \n
 find amount of fisrt element in reactants
 in product, total amout of that element
 product total / reactant total = ans
