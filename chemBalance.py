@@ -23,6 +23,21 @@ class Chemistry:
             equ[i] = re.findall('[A-Z][^A-Z]*', equ[i])
             #print(equ[i*2])
         return(equ)
+    
+    def balance(self, reactant, product):
+        
+        start = reactant[0][0]
+        try:
+            startNum = int(start[-1])
+            start = start[0 : -1]
+        except:
+            startNum = 1
+        print(start)
+        print(startNum)
+
+        
+
+             
 
             
 
@@ -33,5 +48,7 @@ equ = solve.splitStep1(solve.equation)
 reactant = solve.split2(equ[0])
 product = solve.split2(equ[1])
 
+
 print(reactant, " -> ", product)
 
+solve.balance(reactant, product)
