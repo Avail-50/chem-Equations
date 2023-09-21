@@ -24,9 +24,25 @@ class Chemistry:
             #print(equ[i*2])
         return(equ)
     
-    #def quant(self, halfEqu):
+    def quant(self, halfEqu) -> dict:
+        quantDict = {}
+        for i in range (len(halfEqu)):
+            for count in range (len(halfEqu[i])):
+                element = halfEqu[i][count]
+                try:
+                    elementQuant = int(element[-1])
+                    element = element[0 : -1]
+                except:
+                    elementQuant = 1
+                if element in quantDict.keys():
+                    quantDict[element] = quantDict[element] + elementQuant
+                else:
+                    quantDict[element] = elementQuant
+        return quantDict
 
 
+
+#useless function below  v
     def balance(self, reactant, product):
         
         start = reactant[0][0]
@@ -46,7 +62,7 @@ class Chemistry:
 
 
 
-solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
+solve = Chemistry("O2 + NHO3 -> HNO3 + H2O")
 equ = solve.splitStep1(solve.equation)
 reactant = solve.split2(equ[0])
 product = solve.split2(equ[1])
@@ -54,4 +70,7 @@ product = solve.split2(equ[1])
 
 print(reactant, " -> ", product)
 
-solve.balance(reactant, product)
+
+reactantQuantities = solve.quant(reactant)
+prodQuantities = solve.quant(product)
+print(reactantQuantities)
