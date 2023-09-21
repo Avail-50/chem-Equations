@@ -24,6 +24,9 @@ class Chemistry:
             #print(equ[i*2])
         return(equ)
     
+    #def quant(self, halfEqu):
+
+
     def balance(self, reactant, product):
         
         start = reactant[0][0]
