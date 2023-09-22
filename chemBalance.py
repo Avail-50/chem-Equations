@@ -41,18 +41,16 @@ class Chemistry:
         return quantDict
 
 
-
-#useless function below  v
-    def balance(self, reactant, product):
+    def balance(self, reactantQuant, productQuant):
         
-        start = reactant[0][0]
-        try:
-            startNum = int(start[-1])
-            start = start[0 : -1]
-        except:
-            startNum = 1
-        print(start)
-        print(startNum)
+        start = list(reactantQuant.keys())[0]
+        startQR = reactantQuant[start]       
+        startQP = productQuant[start]
+        bal = startQP/startQR
+        print(bal)
+        
+    #def addToEqu(self, loq)
+        
 
         
 
@@ -61,8 +59,8 @@ class Chemistry:
             
 
 
-
-solve = Chemistry("O2 + NHO3 -> HNO3 + H2O")
+print("O2 + NH3 -> HNO3 + H2O")
+solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
 equ = solve.splitStep1(solve.equation)
 reactant = solve.split2(equ[0])
 product = solve.split2(equ[1])
@@ -74,3 +72,5 @@ print(reactant, " -> ", product)
 reactantQuantities = solve.quant(reactant)
 prodQuantities = solve.quant(product)
 print(reactantQuantities)
+print(prodQuantities)
+solve.balance(reactantQuantities, prodQuantities)
