@@ -41,22 +41,20 @@ class Chemistry:
         return quantDict
 
 
-    def balance(self, reactantQuant, productQuant):
+    def balance(self, reactantQuant, productQuant, count):
         
-        start = list(reactantQuant.keys())[0]
+        start = list(reactantQuant.keys())[count]
         startQR = reactantQuant[start]       
         startQP = productQuant[start]
         bal = startQP/startQR
         print(bal)
+        return bal
         
-    #def addToEqu(self, loq)
-        
+    def addToEqu(self, loc, num, equ):
+        equ.insert(loc, num)
 
-        
 
-             
-
-            
+          
 
 
 print("O2 + NH3 -> HNO3 + H2O")
@@ -68,9 +66,18 @@ product = solve.split2(equ[1])
 
 print(reactant, " -> ", product)
 
-
+count = 0
 reactantQuantities = solve.quant(reactant)
 prodQuantities = solve.quant(product)
 print(reactantQuantities)
 print(prodQuantities)
-solve.balance(reactantQuantities, prodQuantities)
+
+if reactantQuantities != prodQuantities:
+    isBalanced = False
+
+while isBalanced == False:
+    solve.balance(reactantQuantities, prodQuantities, count)
+
+    count += 1
+    if reactantQuantities == prodQuantities:
+        isBalanced = True
