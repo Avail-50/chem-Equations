@@ -81,3 +81,6 @@ while isBalanced == False:
     count += 1
     if reactantQuantities == prodQuantities:
         isBalanced = True
+###
+##----------------
+###
