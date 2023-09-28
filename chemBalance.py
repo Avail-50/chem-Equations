@@ -17,7 +17,7 @@ class Chemistry:
     
 
 
-    def split2(self, equ: list):
+    def splitStep2(self, equ: list):
         for i in range(len(equ)):
             equ[i] = re.findall('[A-Z][^A-Z]*', equ[i])
             #print(equ[i*2])
@@ -67,9 +67,16 @@ class Chemistry:
                 halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))             
             except:
                 pass
-        
-
-
+        return(halfEqu)
+'''
+    def reconFullHalf(self, halfEqu):
+        for i in range(len(halfEqu)-1):
+            try:
+                int(halfEqu[i])
+                halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))
+            except:
+                pass
+'''       
 
           
 #splitting equation into computable format
@@ -77,9 +84,8 @@ class Chemistry:
 print("O2 + NH3 -> HNO3 + H2O")
 solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
 equ = solve.splitStep1(solve.equation)
-reactant = solve.split2(equ[0])
-product = solve.split2(equ[1])
-
+reactant = solve.splitStep2(equ[0])
+product = solve.splitStep2(equ[1])
 
 print(reactant, " -> ", product)
 
@@ -105,3 +111,4 @@ while isBalanced == False :
 
 reactant = solve.reconHalfEqu(reactant)
 product = solve.reconHalfEqu(product)
+print(reactant , "->" , product)
