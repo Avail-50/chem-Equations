@@ -8,7 +8,6 @@ class Chemistry:
         self.equation = equation
 
     def splitStep1(self, equation: str) -> str:
-
         reactant = equation.split(" -> ")[0]
         product = equation.split(" -> ")[1]
         listR = reactant.split(" + ")
@@ -27,17 +26,27 @@ class Chemistry:
     def quant(self, halfEqu) -> dict:
         quantDict = {}
         for i in range (len(halfEqu)):
-            for count in range (len(halfEqu[i])):
-                element = halfEqu[i][count]
-                try:
-                    elementQuant = int(element[-1])
-                    element = element[0 : -1]
-                except:
-                    elementQuant = 1
-                if element in quantDict.keys():
-                    quantDict[element] = quantDict[element] + elementQuant
-                else:
-                    quantDict[element] = elementQuant
+            try:
+                for count in range (len(halfEqu[i])):             
+                    element = halfEqu[i][count] 
+                    try:
+                        elementQuant = int(element[-1])
+                        element = element[0 : -1]
+                    except:
+                        elementQuant = 1
+                    if i > 0:
+                        try:
+                            bigNum = int(halfEqu[i-1])
+                            elementQuant = elementQuant * bigNum
+                        except:
+                            pass
+                    if element in quantDict.keys():    
+                        quantDict[element] = quantDict[element] + elementQuant
+                    else:        
+                        quantDict[element] = elementQuant
+                
+            except:
+                pass
         return quantDict
 
 
@@ -47,15 +56,23 @@ class Chemistry:
         startQR = reactantQuant[start]       
         startQP = productQuant[start]
         bal = startQP/startQR
-        print(bal)
         return bal
         
     def addToEqu(self, loc, num, equ):
         equ.insert(loc, num)
 
+    def reconHalfEqu(self, halfEqu):
+        for i in range (len(halfEqu)):
+            try:
+                halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))             
+            except:
+                pass
+        
+
+
 
           
-
+#splitting equation into computable format
 
 print("O2 + NH3 -> HNO3 + H2O")
 solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
@@ -75,9 +92,16 @@ print(prodQuantities)
 if reactantQuantities != prodQuantities:
     isBalanced = False
 
-while isBalanced == False:
-    solve.balance(reactantQuantities, prodQuantities, count)
+while isBalanced == False :
+    bigNum = solve.balance(reactantQuantities, prodQuantities, count)
+    solve.addToEqu(count, bigNum, reactant)
+    print(reactant)
+    reactantQuantities = solve.quant(reactant)
+    print(reactantQuantities)
 
     count += 1
     if reactantQuantities == prodQuantities:
         isBalanced = True
+
+reactant = solve.reconHalfEqu(reactant)
+product = solve.reconHalfEqu(product)
