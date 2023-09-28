@@ -8,7 +8,6 @@ class Chemistry:
         self.equation = equation
 
     def splitStep1(self, equation: str) -> str:
-
         reactant = equation.split(" -> ")[0]
         product = equation.split(" -> ")[1]
         listR = reactant.split(" + ")
@@ -28,9 +27,8 @@ class Chemistry:
         quantDict = {}
         for i in range (len(halfEqu)):
             try:
-                for count in range (len(halfEqu[i])):
-                
-                    element = halfEqu[i][count]   
+                for count in range (len(halfEqu[i])):             
+                    element = halfEqu[i][count] 
                     try:
                         elementQuant = int(element[-1])
                         element = element[0 : -1]
@@ -63,8 +61,14 @@ class Chemistry:
     def addToEqu(self, loc, num, equ):
         equ.insert(loc, num)
 
-    def reconstruct(self, reactant, product):
-        pass
+    def reconHalfEqu(self, halfEqu):
+        for i in range (len(halfEqu)):
+            try:
+                halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))             
+            except:
+                pass
+        
+
 
 
           
@@ -98,3 +102,6 @@ while isBalanced == False :
     count += 1
     if reactantQuantities == prodQuantities:
         isBalanced = True
+
+reactant = solve.reconHalfEqu(reactant)
+product = solve.reconHalfEqu(product)
