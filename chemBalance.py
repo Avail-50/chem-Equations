@@ -121,7 +121,6 @@ while isBalanced == False and totalCount < 10:
     totalCount += 1
     
     if count == len(reactantQuantities):
-        print("same")
         count = 0
 
     if reactantQuantities == prodQuantities:
