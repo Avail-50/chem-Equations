@@ -36,7 +36,7 @@ class Chemistry:
                         elementQuant = 1
                     if i > 0:
                         try:
-                            bigNum = int(halfEqu[i-1])
+                            bigNum = float(halfEqu[i-1])
                             elementQuant = elementQuant * bigNum
                         except:
                             pass
@@ -50,11 +50,11 @@ class Chemistry:
         return quantDict
 
 
-    def balance(self, reactantQuant, productQuant, count):
+    def balance(self, firstQuant, secQuant, count):
         
-        start = list(reactantQuant.keys())[count]
-        startQR = reactantQuant[start]       
-        startQP = productQuant[start]
+        start = list(firstQuant.keys())[count]
+        startQR = firstQuant[start]       
+        startQP = secQuant[start]
         bal = startQP/startQR
         return bal
         
@@ -81,8 +81,10 @@ class Chemistry:
           
 #splitting equation into computable format
 
-print("O2 + NH3 -> HNO3 + H2O")
-solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
+#print("O2 + NH3 -> HNO3 + H2O")
+
+#equation = input()
+solve = Chemistry("H2O2 -> H2O + O2")
 equ = solve.splitStep1(solve.equation)
 reactant = solve.splitStep2(equ[0])
 product = solve.splitStep2(equ[1])
@@ -90,6 +92,7 @@ product = solve.splitStep2(equ[1])
 print(reactant, " -> ", product)
 
 count = 0
+totalCount = 0
 reactantQuantities = solve.quant(reactant)
 prodQuantities = solve.quant(product)
 print(reactantQuantities)
@@ -98,16 +101,32 @@ print(prodQuantities)
 if reactantQuantities != prodQuantities:
     isBalanced = False
 
-while isBalanced == False :
-    bigNum = solve.balance(reactantQuantities, prodQuantities, count)
-    solve.addToEqu(count, bigNum, reactant)
-    print(reactant)
-    reactantQuantities = solve.quant(reactant)
-    print(reactantQuantities)
-
+while isBalanced == False and totalCount < 10:
+    print(int(count/len(reactantQuantities)) % 2)
+    print(len(reactantQuantities))
+    if int(count/len(reactantQuantities)) % 2 == 0:
+        bigNum = solve.balance(reactantQuantities, prodQuantities, count)
+        solve.addToEqu(count, bigNum, reactant)
+        print(reactant)
+        reactantQuantities = solve.quant(reactant)
+        print(reactantQuantities)
+    else:
+        bigNum = solve.balance(prodQuantities, reactantQuantities, count)
+        solve.addToEqu(count, bigNum, product)
+        print(product)
+        reactantQuantities = solve.quant(product)
+        print(prodQuantities)
+    
     count += 1
+    totalCount += 1
+    
+    if count == len(reactantQuantities):
+        print("same")
+        count = 0
+
     if reactantQuantities == prodQuantities:
         isBalanced = True
+        print("Balanced")
 
 reactant = solve.reconHalfEqu(reactant)
 product = solve.reconHalfEqu(product)
