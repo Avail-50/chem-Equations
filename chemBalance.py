@@ -58,16 +58,21 @@ class Chemistry:
         bal = startQP/startQR
         return bal
         
-    def addToEqu(self, loc, num, equ):        
+    def addToEqu(self, loc, num, equ, quant):        
         print("location" , loc)
         if num != 1:
-            try:
-            
-                num = num * float(equ[loc-1])
-                equ[loc-1] = num
-            except:
+            loc = list(quant.keys())[loc]
+            print("location" , loc)
+            for i in equ:
                 
-                equ.insert(loc, num)
+                
+                if loc in equ[i]:
+                    location = equ[i].index(loc)
+                    try:                    
+                        num = num * float(equ[i-1])
+                        equ[i-1] = num
+                    except:                      
+                        equ.insert(location, num)
 
     def reconHalfEqu(self, halfEqu):
         for i in range (len(halfEqu)):
@@ -115,13 +120,13 @@ while isBalanced == False and totalCount < 10:
     #print(len(reactantQuantities))
     if int(count/len(reactantQuantities)) % 2 == 0:
         bigNum = solve.balance(reactantQuantities, prodQuantities, count)
-        solve.addToEqu(count, bigNum, reactant)
+        solve.addToEqu(count, bigNum, reactant, reactantQuantities)
         print(reactant)
         reactantQuantities = solve.quant(reactant)
         print(reactantQuantities)
     else:
         bigNum = solve.balance(prodQuantities, reactantQuantities, count)
-        solve.addToEqu(count, bigNum, product)
+        solve.addToEqu(count, bigNum, product, prodQuantities)
         print(product)
         reactantQuantities = solve.quant(product)
         print(prodQuantities)
