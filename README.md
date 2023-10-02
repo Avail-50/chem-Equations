@@ -1,10 +1,13 @@
 # chem-Equations
 
 ### Splits chemistry equations into reactants and products and each element
-# In future will balance the equation for you
+# In future will ~~balance the equation for you~~   work
 
-1. add reconstruct function to  output, needs to combine float and elements and add elements
+To Do:
+1. last thing (add reconstruct function to  output, needs to combine float and elements and add elements)
 
-2. prioritise integers over floats for balancing, eg. no recuring decimals.
+2. fix addToEqu
+   
+3. redo execution part of code to check whethter reactant or product is being balanced
 
-3. test more: 
+4. test more: 
