@@ -56,7 +56,13 @@ class Chemistry:
         startQR = firstQuant[start]       
         startQP = secQuant[start]
         bal = startQP/startQR
-        return bal
+        rOrP = "r"
+        if bal != int(bal):
+            newBal = startQR/startQP
+            if len(str(bal)) > len(str(newBal)):
+                rOrP = "p"
+                return (newBal, rOrP)
+        return (bal, rOrP)
         
     def addToEqu(self, loc, num, equ, quant):        
         print("location" , loc)
@@ -118,6 +124,9 @@ while isBalanced == False and totalCount < 10:
     print(count)
     #print(int(count/len(reactantQuantities)) % 2)
     #print(len(reactantQuantities))
+    bigNum = solve.balance(reactantQuantities, prodQuantities, count)
+    
+    '''
     if int(count/len(reactantQuantities)) % 2 == 0:
         bigNum = solve.balance(reactantQuantities, prodQuantities, count)
         solve.addToEqu(count, bigNum, reactant, reactantQuantities)
@@ -130,7 +139,7 @@ while isBalanced == False and totalCount < 10:
         print(product)
         reactantQuantities = solve.quant(product)
         print(prodQuantities)
-    
+    '''
     count += 1
     totalCount += 1
     
