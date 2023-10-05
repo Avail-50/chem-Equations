@@ -61,23 +61,32 @@ class Chemistry:
             newBal = startQR/startQP
             if len(str(bal)) > len(str(newBal)):
                 rOrP = "p"
-                return (newBal, rOrP)
-        return (bal, rOrP)
+                return newBal
+        print(bal)
+        return bal
         
     def addToEqu(self, loc, numToAdd, equ, quant):        
         print("location" , loc)
         if numToAdd != 1:
             loc = list(quant.keys())[loc]
             print("location" , loc)
-            for i in equ:              
-                
-                if loc in i:
-                    location = i.index(loc)
-                    try:                    
-                        numToAdd = numToAdd * float(equ[i-1])
-                        equ[i-1] = numToAdd
-                    except:                      
-                        equ.insert(location, numToAdd)
+            for i in range (len(equ)):              
+                for n in range (len(equ[i])):
+                    print("hello")
+                    print(equ[i][n])
+                    if loc in equ[i][n]:
+                        print("hi")
+                        location = i
+                        try:                    
+                            numToAdd = numToAdd * float(equ[i-1])
+                            print("numToAdd", numToAdd)
+                            equ[i-1] = numToAdd
+                        except TypeError: 
+                            print("type error")                     
+                            equ.insert(location, numToAdd)
+                            return equ
+                        except:
+                            print("othre error")
         return equ
 
     def reconHalfEqu(self, halfEqu):
@@ -126,7 +135,8 @@ while isBalanced == False and totalCount < 10:
     #print(int(count/len(reactantQuantities)) % 2)
     #print(len(reactantQuantities))
     bigNum = solve.balance(reactantQuantities, prodQuantities, count)
-    print(solve.addToEqu(count, bigNum, reactant, reactantQuantities))
+    newEquation = solve.addToEqu(count, bigNum, reactant, reactantQuantities)
+    print(solve.quant(newEquation))
 
     '''
     if int(count/len(reactantQuantities)) % 2 == 0:
