@@ -21,7 +21,7 @@ class Chemistry:
         for i in range(len(equ)):
             equ[i] = re.findall('[A-Z][^A-Z]*', equ[i])
             #print(equ[i*2])
-        return(equ)
+        return equ
     
     def quant(self, halfEqu) -> dict:
         quantDict = {}
@@ -61,38 +61,45 @@ class Chemistry:
             newBal = startQR/startQP
             if len(str(bal)) > len(str(newBal)):
                 rOrP = "p"
-                return newBal
+                print(newBal)
+                return (newBal, rOrP)
         print(bal)
-        return bal
+        return (bal, rOrP)
         
     def addToEqu(self, loc, numToAdd, equ, quant):        
+        firstCount = 0
         print("location" , loc)
         if numToAdd != 1:
             loc = list(quant.keys())[loc]
             print("location" , loc)
-            for i in range (len(equ)):              
-                for n in range (len(equ[i])):
-                    print("hello")
-                    print(equ[i][n])
-                    if loc in equ[i][n]:
-                        print("hi")
-                        location = i
-                        try:                    
-                            numToAdd = numToAdd * float(equ[i-1])
-                            print("numToAdd", numToAdd)
-                            equ[i-1] = numToAdd
-                        except TypeError: 
-                            print("type error")                     
-                            equ.insert(location, numToAdd)
-                            return equ
-                        except:
-                            print("othre error")
+            while firstCount < (len(equ)): 
+                try:
+                    int(equ[firstCount])
+                    print("yes")
+                except:
+                    print("string")             
+                    for n in range (len(equ[firstCount])):
+                        print("hello")
+                        print(equ[firstCount][n])
+                        if loc in equ[firstCount][n]:
+                            location = firstCount
+                            try:     
+                                numToAdd = numToAdd * float(equ[firstCount-1])
+                                print("numToAdd", numToAdd)
+                                equ[firstCount-1] = numToAdd
+                            except TypeError:
+                                print("inserting...")
+                                equ.insert(location, numToAdd)
+                                firstCount += 1
+                            except:
+                                print("othre error")
+                firstCount += 1
         return equ
 
     def reconHalfEqu(self, halfEqu):
         for i in range (len(halfEqu)):
             try:
-                halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))             
+                halfEqu[i] = "".join(map(lambda x:x, halfEqu[i]))
             except:
                 pass
         return halfEqu
@@ -136,23 +143,17 @@ while isBalanced == False and totalCount < 10:
     #print(int(count/len(reactantQuantities)) % 2)
     #print(len(reactantQuantities))
     bigNum = solve.balance(reactantQuantities, prodQuantities, count)
-    newEquation = solve.addToEqu(count, bigNum, reactant, reactantQuantities)
-    reactantQuantities = solve.quant(newEquation)
-
-    '''
-    if int(count/len(reactantQuantities)) % 2 == 0:
-        bigNum = solve.balance(reactantQuantities, prodQuantities, count)
-        solve.addToEqu(count, bigNum, reactant, reactantQuantities)
+    if bigNum[1] == "r":
+        print("reactant")
+        reactant = solve.addToEqu(count, bigNum[0], reactant, reactantQuantities)
         print(reactant)
         reactantQuantities = solve.quant(reactant)
         print(reactantQuantities)
-    else:
-        bigNum = solve.balance(prodQuantities, reactantQuantities, count)
-        solve.addToEqu(count, bigNum, product, prodQuantities)
+    elif bigNum[1] == "p":
         print(product)
-        reactantQuantities = solve.quant(product)
-        print(prodQuantities)
-    '''
+        product = solve.addToEqu(count, bigNum[0], product, prodQuantities)
+        prodQuantities = solve.quant(product)
+
     count += 1
     totalCount += 1
     
