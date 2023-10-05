@@ -127,6 +127,7 @@ prodQuantities = solve.quant(product)
 print(reactantQuantities)
 print(prodQuantities)
 
+isBalanced = True
 if reactantQuantities != prodQuantities:
     isBalanced = False
 
@@ -136,7 +137,7 @@ while isBalanced == False and totalCount < 10:
     #print(len(reactantQuantities))
     bigNum = solve.balance(reactantQuantities, prodQuantities, count)
     newEquation = solve.addToEqu(count, bigNum, reactant, reactantQuantities)
-    print(solve.quant(newEquation))
+    reactantQuantities = solve.quant(newEquation)
 
     '''
     if int(count/len(reactantQuantities)) % 2 == 0:
