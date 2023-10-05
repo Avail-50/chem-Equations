@@ -8,6 +8,6 @@ To Do:
 
 2. fix addToEqu
    
-3. redo execution part of code to check whethter reactant or product is being balanced
+3. more complicated eg. balancing by 2 on one side and three on other T-T
 
 4. test more: 
