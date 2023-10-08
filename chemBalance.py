@@ -117,10 +117,11 @@ class Chemistry:
 #splitting equation into computable format
 
 #print("O2 + NH3 -> HNO3 + H2O")
+"O2 -> O3"
 #"H2O2 -> H2O + O2"
 
 #equation = input()
-solve = Chemistry("O2 + NH3 -> HNO3 + H2O")
+solve = Chemistry("H2O + O2 -> H2O2")
 equ = solve.splitStep1(solve.equation)
 reactant = solve.splitStep2(equ[0])
 product = solve.splitStep2(equ[1])
