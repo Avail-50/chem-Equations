@@ -1,5 +1,7 @@
 # chem-Equations
 
+##I gave up
+
 ### Splits chemistry equations into reactants and products and each element
 # In future will ~~balance the equation for you~~   work
 
